@@ -36,7 +36,7 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                 SendResponse response = telegramBot.execute(message);
             }
             if(update.message().text()
-                    .matches("((^([0-2][0-9])|(3[0-1]))\\.((0[0-9])|(1[0-2]))\\.202[4-9])\\s(([0-1][0-9])|(2[0-3])):[0-5][0-9]\\s\\w+$")){
+                    .matches("((^([0-2][0-9])|(3[0-1]))\\.((0[0-9])|(1[0-2]))\\.202[4-9])\\s(([0-1][0-9])|(2[0-3])):[0-5][0-9]\\s.+$")){
                 var chatId = update.message().chat().id();
                 SendMessage message = new SendMessage(chatId, "правильно введено");
                 SendResponse response = telegramBot.execute(message);
