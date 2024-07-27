@@ -13,10 +13,10 @@ public class NotificationTaskEntity {
     @Column(name = "chat_id")
     Long chatId;
 
-    @Column(name = "text")
+    @Column(name = "message_text")
     String text;
 
-    @Column(name = "sheduleDate")
+    @Column(name = "shedule_date")
     LocalDateTime sheduleDate;
 
     public Long getId() {
