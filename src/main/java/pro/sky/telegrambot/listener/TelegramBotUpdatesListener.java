@@ -26,7 +26,8 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
     private final NotificationTaskRepository repository;
 
     public TelegramBotUpdatesListener(NotificationTaskParser parser,
-                                      TelegramBot telegramBot, NotificationTaskRepository repository) {
+                                      TelegramBot telegramBot,
+                                      NotificationTaskRepository repository) {
         this.parser = parser;
         this.telegramBot = telegramBot;
         this.repository = repository;
@@ -43,15 +44,21 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
             logger.info("Processing update: {}", update);
             if (update.message().text().equals("/start")) {
                 var chatId = update.message().chat().id();
-                SendMessage message = new SendMessage(chatId, "Приветствую");
+                String greetings = """
+                              Доброго времени суток, добро пожаловать
+                              в приложение, которое умеет напоминать о
+                              поставленных задачах в заданное время.
+                              Введите строку формата
+                              "dd.MM.yyyy HH:mm Текст напоминания"
+                              и данный бот напомнит Вам о поставленной задаче.
+                        """;
+                SendMessage message = new SendMessage(chatId, greetings);
                 SendResponse response = telegramBot.execute(message);
             }
             if (update.message().text()
                     .matches("((^([0-2][0-9])|(3[0-1]))\\.((0[0-9])|(1[0-2]))\\.202[4-9])\\s(([0-1][0-9])|(2[0-3])):[0-5][0-9]\\s.+$")) {
                 NotificationTaskEntity notificationTask = parser.parse(update);
                 repository.save(notificationTask);
-//                SendMessage message = new SendMessage(notificationTask.getChatId(), notificationTask.getSheduleDate().);
-//                SendResponse response = telegramBot.execute(message);
             }
         });
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
