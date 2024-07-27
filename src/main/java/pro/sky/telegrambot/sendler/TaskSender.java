@@ -14,12 +14,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Component
-public class TaskSendler {
+public class TaskSender {
     private final TelegramBot bot;
     private final NotificationTaskRepository repository;
 
-    public TaskSendler(TelegramBot bot,
-                       NotificationTaskRepository repository) {
+    public TaskSender(TelegramBot bot,
+                      NotificationTaskRepository repository) {
         this.bot = bot;
         this.repository = repository;
     }
